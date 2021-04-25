@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment 
+metadata:
+ name: sa-frontend
+ labels:
+  app: sa-frontend
+spec:
+ replicas: 3
+ minReadySeconds: 15
+ strategy:
+  type: RollingUpdate
+  rollingUpdate:
+   maxUnavailable: 1 
+   maxSurge: 1 
+ selector:
+  matchLabels:
+   app: sa-frontend
+ template:
+  metadata:
+   labels:
+    app: sa-frontend
+  spec:
+   containers:
+   - image: CONTAINER_IMAGE
+     imagePullPolicy: Always
+     name: sa-frontend
+     ports:
+     - containerPort: 80
